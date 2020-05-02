@@ -6,7 +6,8 @@ import java.util.Scanner;
 
 public class Main {
     static final String SHOP_NAME = "カーショップ ジョイ";    // ショップ名
-    static final String CUSTOMER_NAME = "●●";   // 顧客名
+    static final String CUSTOMER_NAME = "田中";   // 顧客名
+    static final int CUSTOMER_MONEY = 20000000; // 所持金
 
     public static void main(String[] args) {
         // 商品を作る
@@ -19,10 +20,12 @@ public class Main {
         // 作った商品をショップに登録する
         registerItem(itemList, shop);
 
+        // ショップの商品リスト一覧を表示
         shop.print();
 
         // 顧客を作る
-        Customer customer = new Customer(CUSTOMER_NAME);
+//        Customer customer = new Customer(CUSTOMER_NAME);
+        Customer customer = new Customer(CUSTOMER_NAME, CUSTOMER_MONEY);
 
         // 顧客を表示
         customer.print();
@@ -33,6 +36,12 @@ public class Main {
 
         // 顧客のカート内の商品を表示
         customer.printMyCart();
+
+        // 精算を行う
+        customer.checkOut();
+
+        // 精算後の状態
+        customer.print();
     }
 
     /**
@@ -92,13 +101,13 @@ public class Main {
      * @param itemNo   追加する商品
      * @throws Exception ショップの商品リストに存在しない商品番号を指定すると通知される
      */
-    private static void addCart(Customer customer, Shop shop, int itemNo) throws Exception{
+    private static void addCart(Customer customer, Shop shop, int itemNo) throws Exception {
         customer.add(shop, itemNo);
     }
 
     /**
      * @param customer 買い物する顧客
-     * @param shop 買い物するショップ
+     * @param shop     買い物するショップ
      */
     private static void selectItem(Customer customer, Shop shop) {
         System.out.println("購入したい商品を選んでください");
@@ -118,15 +127,10 @@ public class Main {
                 addCart(customer, shop, itemNo);
             } catch (NumberFormatException e) {
                 // 数字以外
-                switch (inputStr) {
-                    case "q":
-                        // "q"のとき、連続入力終了
-                        isNotLoopEnd = false;
-                        break;
-                    default:
-                        // 不正の文字の場合、表示を出し、次の入力を待つ
-                        System.out.println("数値または指定の文字を入力してください。");
-                        break;
+                if ("q".equals(inputStr)) {// "q"のとき、連続入力終了
+                    isNotLoopEnd = false;
+                } else {// 不正の文字の場合、表示を出し、次の入力を待つ
+                    System.out.println("数値または指定の文字を入力してください。");
                 }
             } catch (Exception e) {
                 // ショップに存在しない商品番号を指定してしまった

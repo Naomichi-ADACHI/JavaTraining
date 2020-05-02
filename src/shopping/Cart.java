@@ -44,17 +44,26 @@ public class Cart {
 
     /**
      * カートの合計金額を返す
+     *
      * @return
      */
     public int getTotalPrice() {
         int sum = 0;
 
         // 合計金額を足していく
-        for (Item item:
-             listItem) {
+        for (Item item :
+                listItem) {
             sum += item.getPrice();
         }
 
         return sum;
+    }
+
+    /**
+     * カートの商品リストをクリアする
+     */
+    public void clear() {
+        // 参照先を新たなインスタンスとすることで、クリアしたとみなす
+        listItem = new ArrayList<>();
     }
 }
