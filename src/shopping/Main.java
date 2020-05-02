@@ -40,6 +40,11 @@ public class Main {
         return itemList;
     }
 
+    /**
+     * ショップに取扱商品リストを登録する
+     * @param itemList 取扱商品リスト
+     * @param shop 登録するショップ
+     */ 
     private static void registerItem(List<Item> itemList, Shop shop){
         for (Item item :
                 itemList) {
