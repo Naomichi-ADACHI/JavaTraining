@@ -4,7 +4,6 @@ package shopping;
  * 商品クラス
  */
 public class Item {
-    // TODO アレンジ可能なら、商品名・金額はクラス分けしたほうがよくね？
     private String name;    // 商品名
     private int price;  // 商品の価格
 
@@ -24,6 +23,6 @@ public class Item {
      * 商品名と価格をターミナルに出力する
      */
     public void print() {
-        System.out.println(name + " : " + price + "円");
+        System.out.println(name + " : " + price + " 円");
     }
 }
