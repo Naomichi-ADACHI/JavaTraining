@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Main {
     static final String SHOP_NAME = "カーショップ ジョイ";    // ショップ名
+    static final String CUSTOMER_NAME = "●●";   // 顧客名
 
     public static void main(String[] args) {
 	    // 商品を作る
@@ -18,6 +19,18 @@ public class Main {
         registerItem(itemList, shop);
 
         shop.print();
+
+        // 顧客を作る
+        Customer customer = new Customer(CUSTOMER_NAME);
+
+        // 顧客を表示
+        customer.print();
+
+        // カートに商品を追加する
+        addCart(customer, shop);
+
+        // 顧客のカート内の商品を表示
+        customer.printMyCart();
     }
 
     /**
@@ -53,4 +66,15 @@ public class Main {
     }
 
     // TODO 商品名・金額一覧保存しておくenumかなにかをつくる
+
+    /**
+     * 顧客のカートに商品を追加する
+     * @param customer 顧客
+     * @param shop 買い物するショップ
+     */
+    private static void addCart(Customer customer, Shop shop)
+    {
+        customer.add(shop, 0);
+        customer.add(shop, 3);
+    }
 }
