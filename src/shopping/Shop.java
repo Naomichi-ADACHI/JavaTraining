@@ -51,14 +51,27 @@ public class Shop {
     /**
      * 特定の商品番号の商品を返す
      * @param itemNo 取得したい商品番号
-     * @return 商品
+     * @return 取得した商品
+     * @throws Exception ショップの商品リストに存在しない商品番号を指定すると通知される
      */
-    public Item get(int itemNo) {
+    public Item get(int itemNo) throws Exception{
         // listItem内の値でない
-        if(itemNo > listItem.size() - 1){
-            // TODO
+        if(checkItemNo(itemNo) == false){
+            // TODO 別の例外を投げる
+            throw new Exception("Listに登録されていない商品です");
         }
 
         return listItem.get(itemNo);
+    }
+
+    /**
+     * 引数で与えられた商品番号が有効か判定
+     * @param itemNo チェック対象の商品番号
+     * @return 商品リストにある値の場合True
+     */
+    private boolean checkItemNo(int itemNo)
+    {
+        // 0 <= itemNo <= 商品リストの要素数
+        return itemNo >= 0 && itemNo < listItem.size();
     }
 }

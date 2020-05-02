@@ -44,8 +44,9 @@ public class Customer {
      * 特定のショップのカートに商品を追加する
      * @param shop ショップ
      * @param itemNo 追加する商品番号。ShopクラスのListのIndexと紐づく
+     * @throws Exception ショップの商品リストに存在しないitemNoが設定されたときに通知される
      */
-    public void add(Shop shop, int itemNo){
+    public void add(Shop shop, int itemNo) throws Exception{
         myCart.add(shop.get(itemNo));
     }
 }
