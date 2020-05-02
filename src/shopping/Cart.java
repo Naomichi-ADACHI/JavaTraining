@@ -66,4 +66,19 @@ public class Cart {
         // 参照先を新たなインスタンスとすることで、クリアしたとみなす
         listItem = new ArrayList<>();
     }
+
+    /**
+     * カート内の指定されたインデックスの商品を取り除く
+     *
+     * @param itemNo 取り除く商品のインデックス
+     * @throws IndexOutOfBoundsException カート内に存在しないインデックスを指定したときに通知される
+     */
+    public void remove(int itemNo) throws IndexOutOfBoundsException {
+        try {
+            // カートの特定のIndexの商品を取り除く
+            listItem.remove(itemNo);
+        } catch (IndexOutOfBoundsException e) {
+            throw e;
+        }
+    }
 }

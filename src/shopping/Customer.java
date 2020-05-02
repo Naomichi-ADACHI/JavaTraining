@@ -59,9 +59,9 @@ public class Customer {
      *
      * @param shop   ショップ
      * @param itemNo 追加する商品番号。ShopクラスのListのIndexと紐づく
-     * @throws Exception ショップの商品リストに存在しないitemNoが設定されたときに通知される
+     * @throws IndexOutOfBoundsException ショップの商品リストに存在しないitemNoが設定されたときに通知される
      */
-    public void add(Shop shop, int itemNo) throws Exception {
+    public void add(Shop shop, int itemNo) throws IndexOutOfBoundsException {
         myCart.add(shop.get(itemNo));
     }
 
@@ -90,5 +90,15 @@ public class Customer {
      */
     private boolean isEnoughMoney(int price) {
         return money >= price;
+    }
+
+    /**
+     * カート内の指定のインデックスの商品を取り除く
+     *
+     * @param itemNo 取り除く商品のインデックス
+     * @throws IndexOutOfBoundsException 商品がカート内に存在しないときに通知される
+     */
+    public void remove(int itemNo) throws IndexOutOfBoundsException {
+        myCart.remove(itemNo);
     }
 }

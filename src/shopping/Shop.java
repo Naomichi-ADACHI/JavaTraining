@@ -53,13 +53,13 @@ public class Shop {
      *
      * @param itemNo 取得したい商品番号
      * @return 取得した商品
-     * @throws Exception ショップの商品リストに存在しない商品番号を指定すると通知される
+     * @throws IndexOutOfBoundsException ショップの商品リストに存在しない商品番号を指定すると通知される
      */
-    public Item get(int itemNo) throws Exception {
+    public Item get(int itemNo) throws IndexOutOfBoundsException {
         // listItem内の値でない
         if (checkItemNo(itemNo) == false) {
             // TODO 別の例外を投げる
-            throw new Exception("Listに登録されていない商品です");
+            throw new IndexOutOfBoundsException("Listに登録されていない商品です");
         }
 
         return listItem.get(itemNo);
