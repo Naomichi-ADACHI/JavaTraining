@@ -25,4 +25,11 @@ public class Item {
     public void print() {
         System.out.println(name + " : " + price + " 円");
     }
+
+    /**
+     * 商品の金額を返す
+     */
+    public int getPrice() {
+        return price;
+    }
 }
