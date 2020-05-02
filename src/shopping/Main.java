@@ -101,7 +101,7 @@ public class Main {
      * @param itemNo   追加する商品
      * @throws Exception ショップの商品リストに存在しない商品番号を指定すると通知される
      */
-    private static void addCart(Customer customer, Shop shop, int itemNo) throws Exception {
+    private static void addCart(Customer customer, Shop shop, int itemNo) throws IndexOutOfBoundsException {
         customer.add(shop, itemNo);
     }
 
@@ -116,7 +116,7 @@ public class Main {
 
         boolean isNotLoopEnd = true;  // "q"が入力されたときにtrueとなり、ループが終了するフラグ
         while (isNotLoopEnd) {
-            System.out.print("商品番号（ｑで買い物を終了）？");
+            System.out.print("商品番号（ｑで買い物を終了/cでカートの中身を表示/rで返品）？");
             // 標準入力から一行取得
             String inputStr = sc.nextLine();
 
@@ -127,15 +127,75 @@ public class Main {
                 addCart(customer, shop, itemNo);
             } catch (NumberFormatException e) {
                 // 数字以外
-                if ("q".equals(inputStr)) {// "q"のとき、連続入力終了
-                    isNotLoopEnd = false;
-                } else {// 不正の文字の場合、表示を出し、次の入力を待つ
-                    System.out.println("数値または指定の文字を入力してください。");
+                switch (inputStr) {
+                    // TODO ケースごとにクラス分けとかするのだろう
+                    case "q":
+                        // "q"のとき、連続入力終了
+                        isNotLoopEnd = false;
+                        break;
+                    case "c":
+                        // "c"のとき、カートの中身を表示
+                        customer.printMyCart();
+                        break;
+                    case "r":
+                        // "r"のとき、返品モードに入る
+                        returnItem(customer);
+                        break;
+                    default:
+                        // 不正の文字の場合、表示を出し、次の入力を待つ
+                        System.out.println("数値または指定の文字を入力してください。");
+                        break;
                 }
-            } catch (Exception e) {
+            } catch (IndexOutOfBoundsException e) {
                 // ショップに存在しない商品番号を指定してしまった
                 System.out.println("指定された商品番号に該当する商品は商品リストにありません。");
             }
         }
+    }
+
+    /**
+     * 返品モードに入り、顧客のカートの商品を取り除く
+     *
+     * @param customer 対象の顧客
+     */
+    private static void returnItem(Customer customer) {
+        System.out.println("■□■□■現在返品モードです。■□■□■");
+
+        boolean isNotLoopEnd = true;    // "q"が入力されたときにtrueとなり、ループが終了するフラグ
+
+        Scanner sc = new Scanner(System.in);
+
+        while (isNotLoopEnd) {
+            // 必ず最初にカートの情報を表示
+            customer.printMyCart();
+
+            System.out.print("返品する商品番号（ｑで返品を終了）？");
+
+            final String inputStr = sc.nextLine();
+            // 数字かどうかの判定がしたい
+            try {
+                // Intにパースできれば数字なので、商品を選択
+                int itemNo = Integer.parseInt(inputStr);
+                customer.remove(itemNo);
+            } catch (NumberFormatException e) {
+                // 数字以外
+                switch (inputStr) {
+                    // TODO ケースごとにクラス分けとかするのだろう
+                    case "q":
+                        // "q"のとき、連続入力終了
+                        isNotLoopEnd = false;
+                        break;
+                    default:
+                        // 不正の文字の場合、表示を出し、次の入力を待つ
+                        System.out.println("数値または指定の文字を入力してください。");
+                        break;
+                }
+            } catch (IndexOutOfBoundsException e) {
+                // ショップに存在しない商品番号を指定してしまった
+                System.out.println("指定された商品番号に該当する商品は商品リストにありません。");
+            }
+        }
+
+        System.out.println("■□■□■返品モードを解除しました。■□■□■");
     }
 }
