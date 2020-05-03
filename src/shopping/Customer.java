@@ -67,8 +67,10 @@ public class Customer {
 
     /**
      * カートの商品を精算する
+     *
+     * @throws ShortOfMoneyException 所持金不足のときに通知される
      */
-    public void checkOut() {
+    public void checkOut() throws ShortOfMoneyException {
         // カート内合計金額を取得
         final int totalPrice = myCart.getTotalPrice();
 
@@ -78,7 +80,7 @@ public class Customer {
             myCart.clear();
         } else {
             // 所持金不足で、精算をしない
-            System.out.println("精算不可 : 所持金が不足しています");
+            throw new ShortOfMoneyException("所持金不足");
         }
     }
 
