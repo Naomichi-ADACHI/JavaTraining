@@ -38,7 +38,11 @@ public class Main {
         customer.printMyCart();
 
         // 精算を行う
-        customer.checkOut();
+        try {
+            customer.checkOut();
+        } catch (ShortOfMoneyException e) {
+            System.out.println("精算不可 : 所持金が不足しています");
+        }
 
         // 精算後の状態
         customer.print();
