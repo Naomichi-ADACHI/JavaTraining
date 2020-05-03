@@ -31,17 +31,22 @@ public class Main {
         customer.print();
 
         // カートに商品を追加する
+        System.out.println("購入したい商品を選んでください");
+
+        while (true) {
 //        addCart(customer, shop);
-        selectItem(customer, shop);
+            selectItem(customer, shop);
 
-        // 顧客のカート内の商品を表示
-        customer.printMyCart();
+            // 顧客のカート内の商品を表示
+            customer.printMyCart();
 
-        // 精算を行う
-        try {
-            customer.checkOut();
-        } catch (ShortOfMoneyException e) {
-            System.out.println("精算不可 : 所持金が不足しています");
+            // 精算を行う
+            try {
+                customer.checkOut();
+                break;
+            } catch (ShortOfMoneyException e) {
+                System.out.println("精算不可 : 所持金が不足しています");
+            }
         }
 
         // 精算後の状態
@@ -114,8 +119,6 @@ public class Main {
      * @param shop     買い物するショップ
      */
     private static void selectItem(Customer customer, Shop shop) {
-        System.out.println("購入したい商品を選んでください");
-
         Scanner sc = new Scanner(System.in);
 
         boolean isNotLoopEnd = true;  // "q"が入力されたときにtrueとなり、ループが終了するフラグ
